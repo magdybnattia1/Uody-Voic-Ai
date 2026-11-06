@@ -118,7 +118,7 @@ class MainActivity : ComponentActivity() {
             c.contains("اعدادات") -> openSettings(android.provider.Settings.ACTION_SETTINGS)
 
             c.contains("افتح الكاميرا") || c == "الكاميرا" -> launchApp(Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE), "الكاميرا")
-            c.contains("افتح الساعه") || c.contains("افتح الساعة") || c == "الساعة" -> launchCategory(Intent.CATEGORY_APP_CLOCK, "الساعة")
+            c.contains("افتح الساعه") || c.contains("افتح الساعة") || c == "الساعة" -> launchCategory("android.intent.category.APP_CLOCK", "الساعة")
             c.contains("افتح جهات الاتصال") || c.contains("افتح الاسماء") -> launchCategory(Intent.CATEGORY_APP_CONTACTS, "جهات الاتصال")
             c.contains("افتح الرسائل") -> launchCategory(Intent.CATEGORY_APP_MESSAGING, "الرسائل")
             c.contains("اتصل") || c.contains("افتح الاتصال") || c.contains("افتح الهاتف") -> launchApp(Intent(Intent.ACTION_DIAL), "الهاتف")
