@@ -27,7 +27,6 @@ import androidx.core.content.ContextCompat
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
-    private var torchOn = false
     private var statusUpdate: ((String) -> Unit)? = null
     private var commandUpdate: ((String) -> Unit)? = null
 
@@ -101,7 +100,7 @@ class MainActivity : ComponentActivity() {
             c.contains("بلوتوث") -> openSettings(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS)
             c.contains("واي فاي") || c.contains("wifi") -> openSettings(android.provider.Settings.ACTION_WIFI_SETTINGS)
             c.contains("الإشعارات") || c.contains("الاشعارات") -> openSettings("android.settings.APP_NOTIFICATION_SETTINGS")
-            c.contains("انتظار المكالمات") || c.contains("انتظار المكالمه") || c.contains("المكالمات") -> openSettings(android.provider.Settings.ACTION_CALL_SETTINGS)
+            c.contains("انتظار المكالمات") || c.contains("انتظار المكالمه") || c.contains("المكالمات") -> openSettings("android.intent.action.CALL_SETTINGS")
             c.contains("إعدادات") || c.contains("الاعدادات") -> openSettings(android.provider.Settings.ACTION_SETTINGS)
             else -> statusUpdate?.invoke("الأمر ده لسه مش مضاف. جرّب أمر من القائمة")
         }
@@ -113,7 +112,6 @@ class MainActivity : ComponentActivity() {
             val id = manager.cameraIdList.firstOrNull { manager.getCameraCharacteristics(it).get(CameraCharacteristics.FLASH_INFO_AVAILABLE) == true }
             if (id == null) { statusUpdate?.invoke("الفلاش غير متاح على الهاتف"); return }
             manager.setTorchMode(id, enabled)
-            torchOn = enabled
             statusUpdate?.invoke(if (enabled) "الفلاش اشتغل بنجاح" else "الفلاش اتقفل")
         } catch (e: Exception) { statusUpdate?.invoke("تعذر التحكم في الفلاش: ${e.localizedMessage ?: "خطأ"}") }
     }
